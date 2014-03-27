@@ -7,13 +7,13 @@ angular.module('Controls')
                 var orderBy = $filter('orderBy');
 
                 var setFilteredItems = function() {
-                    $scope.filteredItems = orderBy(filter($scope.items, $scope.selectedItemText), $scope.propName);
+                    $scope.filteredItems = orderBy(filter($scope.items, $scope.selectedItemText), $scope.options.propName);
                     $scope.noItems = $scope.filteredItems.length === 0;
                     refreshShouldShow();
                 };
                 $scope.$watch('selectedItemText.length', function () {
                     if (!$scope.isDefined($scope.selectedItem)
-                        || $scope.selectedItemText !== $scope.selectedItem[$scope.propName]) {
+                        || $scope.selectedItemText !== $scope.selectedItem[$scope.options.propName]) {
                         $scope.selectedItem = {};
                     }
                     setFilteredItems();
@@ -100,18 +100,15 @@ angular.module('Controls')
                         selectedItem: '=',
                         items: '=',
                         userOptions: '=options',
-                        propName: '@',
                         externalSelect: '=select',
                         externalCreate: '=create',
                         isShowing: '=',
-                        placeholder: '@',
-                        closeOnSelect: '@',
                     },
                     controller: 'AutocompleteInputController',
                     templateUrl: '/assets/controls/autocomplete/autocompleteInput.html',
                     link: function($scope, element, attrs) {
 
-                        $scope.$watch('userOptions', function(userOptions){
+                        var setOptions = function(userOptions) {
                             $scope.options = $.extend({
                                 selectedItemText: '',
                                 propName: 'name',
@@ -120,7 +117,9 @@ angular.module('Controls')
                                 closeOnSelect: true,
                                 disableCreate: false,
                             }, userOptions);
-                        })
+                        }
+                        setOptions();
+                        $scope.$watch('userOptions', setOptions);
 
                         var input = element.find('.autocomplete-input');
                         $scope.focusOnInput = function() {
@@ -149,7 +148,7 @@ angular.module('Controls')
                                 return $scope.externalCreate(itemName);
                             } else {
                                 var createdItem = {};
-                                createdItem[$scope.propName] = itemName;
+                                createdItem[$scope.options.propName] = itemName;
                                 $scope.items.push(createdItem);
                                 return createdItem;
                             }
@@ -162,7 +161,7 @@ angular.module('Controls')
                             } else {
                                 $scope.selectedItem = item;
                                 $scope.selectedItemText = $scope.isDefined($scope.selectedItem)
-                                    ? $scope.selectedItem[$scope.propName]
+                                    ? $scope.selectedItem[$scope.options.propName]
                                     : '';
                             }
                             
@@ -170,7 +169,7 @@ angular.module('Controls')
                         };
                         
                         $scope.onSelected = function () {
-                            if (!$scope.closeOnSelect) {
+                            if (!$scope.options.closeOnSelect) {
                                 $scope.focusOnInput();
                             } else {
                                 $scope.blur();

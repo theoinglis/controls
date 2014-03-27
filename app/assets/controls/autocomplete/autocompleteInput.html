@@ -1,6 +1,6 @@
 <div class='autocomplete-input-container dropdown' ng-class='{open: isShowing}' on-focus-changed='onFocused'>
     <input type='text' class='autocomplete-input'
-           placeholder="{{placeholder}}"
+           placeholder="{{options.placeholder}}"
            ng-keyup='onKeyup($event)'
            ng-model='selectedItemText'/>
     <ul class='ul-default dropdown-menu autocomplete-input-items'>
@@ -8,7 +8,7 @@
             <button class='li-btn-main btn-default' ng-class='{highlight: ($index === highlightPos)}'
                     type='button' tabindex='-1'
                     ng-click='select(item)'>
-                {{item[propName]}}
+                {{item[options.propName]}}
             </button>
         </li>
         <li class='li-footer autocomplete-input-item autocomplete-input-create'

@@ -9,9 +9,9 @@ angular.module('autocompleteApp')
 
   	$scope.customisedSelectedItems = [];
   	$scope.customisedItems = [
-  		{ Name: 'Fred' },
-  		{ Name: 'Brabra' },
-  		{ Name: 'Gomez' },
+  		{ name: 'Fred' },
+  		{ name: 'Brabra' },
+  		{ name: 'Gomez' },
   	];
     $scope.customisedOptions = {
       disableCreate: true,

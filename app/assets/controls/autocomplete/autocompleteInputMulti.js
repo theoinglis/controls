@@ -2,8 +2,13 @@ angular.module('Controls')
     .controller('AutocompleteInputMultiController',
         ['$scope', '$timeout',
             function($scope, $timeout) {
+                var initialised = false;
                 $scope.$watch('selectedItemText.length', function() {
-                    navigateSelectedItems.reset();
+                    if (initialised) {
+                        navigateSelectedItems.reset();
+                    } else {
+                        initialised = true;
+                    }
                 });
 
                 $scope.selectedItemPos = null;
@@ -132,11 +137,15 @@ angular.module('Controls')
                     controller: 'AutocompleteInputMultiController',
                     templateUrl: '/assets/controls/autocomplete/autocompleteInputMulti.html',
                     link: function($scope, element, attrs) {
-                        $scope.$watch('userOptions', function(userOptions){
+                        var setOptions = function(userOptions) {
                             $scope.options = $.extend({
                                 disableCreate: false,
-                            }, null);
-                        });
+                                closeOnSelect: false,
+                                propName: 'name',
+                            }, userOptions);
+                        };
+                        setOptions();
+                        $scope.$watch('userOptions', setOptions);
 
                         var inputElement = null;
                         $scope.getInput = function() {
