@@ -302,18 +302,33 @@ module.exports = function (grunt) {
     //     }
     //   }
     // },
-    // uglify: {
-    //   dist: {
-    //     files: {
-    //       '<%= yeoman.dist %>/scripts/scripts.js': [
-    //         '<%= yeoman.dist %>/scripts/scripts.js'
-    //       ]
-    //     }
-    //   }
-    // },
-    // concat: {
-    //   dist: {}
-    // },
+       concat: {
+         package: {
+           files: {
+            'build/autocomplete/autocomplete.js': [
+              'app/assets/controls/autocomplete/autocompleteInput.js',
+              'app/assets/helpers/on.js',
+            ],
+            'build/autocompleteMultiAndAutocomplete/autocompleteMulti.js': [
+              'build/autocomplete/autocomplete.js',
+              'app/assets/controls/autocomplete/autocomplete/autocompleteInputMulri.js',
+              'app/assets/helpers/preventDefault.js',
+              ],
+           }
+         }
+       },
+       uglify: {
+         package: {
+           files: {
+             'build/autocomplete/autocomplete.min.js': [
+               'build/autocomplete/autocomplete.js'
+             ],
+             'build/autocompleteMultiAndAutocomplete/autocompleteMulti.min.js': [
+               'build/autocompleteMultiAndAutocomplete/autocompleteMulti.js'
+             ],
+           }
+         }
+       },
 
     // Test settings
     karma: {
@@ -323,6 +338,13 @@ module.exports = function (grunt) {
       }
     }
   });
+
+
+
+  grunt.registerTask('package', [
+      'concat:package',
+      'uglify:package',
+    ])
 
 
   grunt.registerTask('serve', function (target) {

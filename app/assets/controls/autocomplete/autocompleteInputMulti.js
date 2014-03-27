@@ -138,6 +138,9 @@ angular.module('Controls')
                     templateUrl: '/assets/controls/autocomplete/autocompleteInputMulti.html',
                     link: function($scope, element, attrs) {
                         var setOptions = function(userOptions) {
+                            // Want to overwrite default options hence have to have
+                            // userOptions later in the extend, however, want to
+                            // use userOptions object
                             var newOptions = $.extend({}, {
                                 disableCreate: false,
                                 closeOnSelect: false,
@@ -145,7 +148,6 @@ angular.module('Controls')
                                 select: $scope.addItem,
                             }, userOptions);
                             $scope.options = $.extend(userOptions, newOptions);
-                            var areEqual = $scope.options === userOptions;
                         };
                         setOptions();
                         $scope.$watch('userOptions', setOptions);
