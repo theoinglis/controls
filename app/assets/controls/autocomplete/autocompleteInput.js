@@ -99,17 +99,29 @@ angular.module('Controls')
                         selectedItemText: '=',
                         selectedItem: '=',
                         items: '=',
+                        userOptions: '=options',
                         propName: '@',
                         externalSelect: '=select',
                         externalCreate: '=create',
                         isShowing: '=',
                         placeholder: '@',
                         closeOnSelect: '@',
-                        disableCreate: '@',
                     },
                     controller: 'AutocompleteInputController',
                     templateUrl: '/assets/controls/autocomplete/autocompleteInput.html',
                     link: function($scope, element, attrs) {
+
+                        $scope.$watch('userOptions', function(userOptions){
+                            $scope.options = $.extend({
+                                selectedItemText: '',
+                                propName: 'name',
+                                isShowing: false,
+                                placeholder: '',
+                                closeOnSelect: true,
+                                disableCreate: false,
+                            }, userOptions);
+                        })
+
                         var input = element.find('.autocomplete-input');
                         $scope.focusOnInput = function() {
                             input.focus();
@@ -131,7 +143,7 @@ angular.module('Controls')
                             $scope.select(createdItem);
                         };
                         $scope.create = function(itemName) {
-                            if ($scope.disableCreate) return;
+                            if ($scope.options.disableCreate) return;
 
                             if ($scope.isDefined($scope.externalCreate)) {
                                 return $scope.externalCreate(itemName);

@@ -127,10 +127,17 @@ angular.module('Controls')
                     scope: {
                         selectedItems: '=',
                         items: '=',
+                        userOptions: '=options',
                     },
                     controller: 'AutocompleteInputMultiController',
                     templateUrl: '/assets/controls/autocomplete/autocompleteInputMulti.html',
                     link: function($scope, element, attrs) {
+                        $scope.$watch('userOptions', function(userOptions){
+                            $scope.options = $.extend({
+                                disableCreate: false,
+                            }, null);
+                        });
+
                         var inputElement = null;
                         $scope.getInput = function() {
                             if (inputElement === null) {
