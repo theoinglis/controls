@@ -24,12 +24,12 @@ angular.module('Controls')
                     var hasItems = !$scope.noItems;
                     var canCreate = !$scope.disableCreate && $scope.isDefined($scope.options.selectedItemText) && $scope.options.selectedItemText !== '';
                     if (isFocused) {
-                        $scope.isShowing = hasItems || canCreate;
+                        $scope.options.isShowing = hasItems || canCreate;
                     } else {
                         // Firefox closes before the button is clicked so a delay is needed before the menu is closed
                         $timeout(function() {
                             if (!isFocused) {
-                                $scope.isShowing = false;
+                                $scope.options.isShowing = false;
                             }
                         }, 100);
                     }
@@ -101,7 +101,6 @@ angular.module('Controls')
                         userOptions: '=options',
                         externalSelect: '=select',
                         externalCreate: '=create',
-                        isShowing: '=',
                     },
                     controller: 'AutocompleteInputController',
                     templateUrl: '/assets/controls/autocomplete/autocompleteInput.html',
