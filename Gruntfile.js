@@ -271,7 +271,7 @@ module.exports = function (grunt) {
         cwd: '<%= yeoman.app %>/styles',
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
-      }
+      },
     },
 
     // Run some tasks in parallel to speed up the build process
@@ -311,7 +311,7 @@ module.exports = function (grunt) {
             ],
             'build/autocompleteMultiAndAutocomplete/autocompleteMulti.js': [
               'build/autocomplete/autocomplete.js',
-              'app/assets/controls/autocomplete/autocomplete/autocompleteInputMulri.js',
+              'app/assets/controls/autocompleteMulti/autocompleteInputMulti.js',
               'app/assets/helpers/preventDefault.js',
               ],
            }
@@ -329,7 +329,17 @@ module.exports = function (grunt) {
            }
          }
        },
-
+       cssmin: {
+        combine: {
+          files: {
+            'build/autocomplete/autocomplete.css': ['app/assets/controls/autocomplete/*.css'],
+            'build/autocompleteMultiAndAutocomplete/autocompleteMulti.css': [
+                'app/assets/controls/autocomplete/*.css', 
+                'app/assets/controls/autocompleteMulti/*.css',
+            ],
+          },
+        },
+      },
     // Test settings
     karma: {
       unit: {
@@ -344,6 +354,7 @@ module.exports = function (grunt) {
   grunt.registerTask('package', [
       'concat:package',
       'uglify:package',
+      'cssmin',
     ])
 
 
