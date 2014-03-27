@@ -22,7 +22,7 @@ angular.module('Controls')
 
                 var refreshShouldShow = function() {
                     var hasItems = !$scope.noItems;
-                    var canCreate = !$scope.disableCreate && $scope.isDefined($scope.options.selectedItemText) && $scope.options.selectedItemText !== '';
+                    var canCreate = !$scope.options.disableCreate && $scope.isDefined($scope.options.selectedItemText) && $scope.options.selectedItemText !== '';
                     if (isFocused) {
                         $scope.options.isShowing = hasItems || canCreate;
                     } else {
@@ -99,8 +99,6 @@ angular.module('Controls')
                         selectedItem: '=',
                         items: '=',
                         userOptions: '=options',
-                        externalSelect: '=select',
-                        externalCreate: '=create',
                     },
                     controller: 'AutocompleteInputController',
                     templateUrl: '/assets/controls/autocomplete/autocompleteInput.html',
@@ -144,8 +142,8 @@ angular.module('Controls')
                         $scope.create = function(itemName) {
                             if ($scope.options.disableCreate) return;
 
-                            if ($scope.isDefined($scope.externalCreate)) {
-                                return $scope.externalCreate(itemName);
+                            if ($scope.isDefined($scope.options.create)) {
+                                return $scope.options.create(itemName);
                             } else {
                                 var createdItem = {};
                                 createdItem[$scope.options.propName] = itemName;
@@ -156,8 +154,8 @@ angular.module('Controls')
                         $scope.select = function (item) {
                             if (!$scope.isDefined(item)) return;
 
-                            if ($scope.isDefined($scope.externalSelect)) {
-                                $scope.externalSelect(item);
+                            if ($scope.isDefined($scope.options.select)) {
+                                $scope.options.select(item);
                             } else {
                                 $scope.selectedItem = item;
                                 $scope.options.selectedItemText = $scope.isDefined($scope.selectedItem)

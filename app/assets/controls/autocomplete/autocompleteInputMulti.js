@@ -142,6 +142,7 @@ angular.module('Controls')
                                 disableCreate: false,
                                 closeOnSelect: false,
                                 propName: 'name',
+                                select: $scope.addItem,
                             }, userOptions);
                             $scope.options = $.extend(userOptions, newOptions);
                             var areEqual = $scope.options === userOptions;
