@@ -138,11 +138,13 @@ angular.module('Controls')
                     templateUrl: '/assets/controls/autocomplete/autocompleteInputMulti.html',
                     link: function($scope, element, attrs) {
                         var setOptions = function(userOptions) {
-                            $scope.options = $.extend({
+                            var newOptions = $.extend({}, {
                                 disableCreate: false,
                                 closeOnSelect: false,
                                 propName: 'name',
                             }, userOptions);
+                            $scope.options = $.extend(userOptions, newOptions);
+                            var areEqual = $scope.options === userOptions;
                         };
                         setOptions();
                         $scope.$watch('userOptions', setOptions);
@@ -178,7 +180,7 @@ angular.module('Controls')
                         }
                         $scope.addItem = function(item) {
                             $scope.selectedItems.push(item);
-                            $scope.selectedItemText = '';
+                            $scope.options.selectedItemText = '';
                             removeItemFromArray($scope.availableItems, item)
                         }
 

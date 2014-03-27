@@ -7,13 +7,13 @@ angular.module('Controls')
                 var orderBy = $filter('orderBy');
 
                 var setFilteredItems = function() {
-                    $scope.filteredItems = orderBy(filter($scope.items, $scope.selectedItemText), $scope.options.propName);
+                    $scope.filteredItems = orderBy(filter($scope.items, $scope.options.selectedItemText), $scope.options.propName);
                     $scope.noItems = $scope.filteredItems.length === 0;
                     refreshShouldShow();
                 };
-                $scope.$watch('selectedItemText.length', function () {
-                    if (!$scope.isDefined($scope.selectedItem)
-                        || $scope.selectedItemText !== $scope.selectedItem[$scope.options.propName]) {
+                $scope.$watch('options.selectedItemText.length', function () {
+                    if (!$scope.isDefined($scope.options.selectedItem)
+                        || $scope.options.selectedItemText !== $scope.selectedItem[$scope.options.propName]) {
                         $scope.selectedItem = {};
                     }
                     setFilteredItems();
@@ -22,7 +22,7 @@ angular.module('Controls')
 
                 var refreshShouldShow = function() {
                     var hasItems = !$scope.noItems;
-                    var canCreate = !$scope.disableCreate && $scope.isDefined($scope.selectedItemText) && $scope.selectedItemText !== '';
+                    var canCreate = !$scope.disableCreate && $scope.isDefined($scope.options.selectedItemText) && $scope.options.selectedItemText !== '';
                     if (isFocused) {
                         $scope.isShowing = hasItems || canCreate;
                     } else {
@@ -79,8 +79,8 @@ angular.module('Controls')
                         var highlightedItem = navigateHighlight.getHighlightedItem();
                         if (highlightedItem !== null) {
                             $scope.select(highlightedItem);
-                        } else if ($scope.selectedItemText) {
-                            $scope.createAndSelect($scope.selectedItemText);
+                        } else if ($scope.options.selectedItemText) {
+                            $scope.createAndSelect($scope.options.selectedItemText);
                         }
                     } else if (isKeyCode(e, 38)) { // up
                         navigateHighlight.back();
@@ -96,7 +96,6 @@ angular.module('Controls')
                     restrict: 'E',
                     replace: true,
                     scope: {
-                        selectedItemText: '=',
                         selectedItem: '=',
                         items: '=',
                         userOptions: '=options',
@@ -109,7 +108,7 @@ angular.module('Controls')
                     link: function($scope, element, attrs) {
 
                         var setOptions = function(userOptions) {
-                            $scope.options = $.extend({
+                            var newOptions = $.extend({}, {
                                 selectedItemText: '',
                                 propName: 'name',
                                 isShowing: false,
@@ -117,6 +116,8 @@ angular.module('Controls')
                                 closeOnSelect: true,
                                 disableCreate: false,
                             }, userOptions);
+                            $scope.options = $.extend(userOptions, newOptions);
+                            var areEqual = $scope.options === userOptions;
                         }
                         setOptions();
                         $scope.$watch('userOptions', setOptions);
@@ -160,7 +161,7 @@ angular.module('Controls')
                                 $scope.externalSelect(item);
                             } else {
                                 $scope.selectedItem = item;
-                                $scope.selectedItemText = $scope.isDefined($scope.selectedItem)
+                                $scope.options.selectedItemText = $scope.isDefined($scope.selectedItem)
                                     ? $scope.selectedItem[$scope.options.propName]
                                     : '';
                             }

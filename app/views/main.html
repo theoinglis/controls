@@ -1,11 +1,11 @@
 <div>
   <h1>Autocomplete Input</h1>
   <h2>Basic implementation:</h2>
+  <div>Selected Item Text: {{singleInputOptions.selectedItemText}}</div>
   <autocomplete-input selected-item='selectedItem' 
-                      selected-item-text='selectedItemText' 
+                      options='singleInputOptions' 
                       is-showing='isShowing'
-                      items='availableItems' 
-                      placeholder='Select Item'>
+                      items='availableItems' >
   </autocomplete-input>
   <h2>Multiple implementation:</h2>
   <autocomplete-input-multi selected-items='selectedItems'

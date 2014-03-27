@@ -2,7 +2,7 @@
     <input type='text' class='autocomplete-input'
            placeholder="{{options.placeholder}}"
            ng-keyup='onKeyup($event)'
-           ng-model='selectedItemText'/>
+           ng-model='options.selectedItemText'/>
     <ul class='ul-default dropdown-menu autocomplete-input-items'>
         <li class='li-default autocomplete-input-item' ng-repeat='item in filteredItems'>
             <button class='li-btn-main btn-default' ng-class='{highlight: ($index === highlightPos)}'
@@ -12,14 +12,14 @@
             </button>
         </li>
         <li class='li-footer autocomplete-input-item autocomplete-input-create'
-            ng-show='!options.disableCreate && selectedItemText'>
+            ng-show='!options.disableCreate && options.selectedItemText'>
             <label class='li-content li-content-title'>
                 Create and Select:
             </label>
             <button class='li-default li-btn-main btn-default' ng-class='{highlight: noItems}'
                     type='button' tabindex='-1'
-                    ng-click='createAndSelect(selectedItemText)'>
-                {{selectedItemText}}
+                    ng-click='createAndSelect(options.selectedItemText)'>
+                {{options.selectedItemText}}
             </button>
         </li>
     </ul>

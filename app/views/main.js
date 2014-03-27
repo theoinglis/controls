@@ -3,6 +3,9 @@
 angular.module('autocompleteApp')
   .controller('MainCtrl', function ($scope) {
   	$scope.selectedItems = [];
+    $scope.singleInputOptions = {
+      placeholder: 'Select Item',
+    };
 
   	$scope.multiInputItems = [];
 
