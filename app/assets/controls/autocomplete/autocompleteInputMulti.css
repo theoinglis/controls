@@ -1,0 +1,40 @@
+.input-default {
+    -moz-appearance: textfield;
+    -webkit-appearance: textfield;
+    background-color: white;
+    background-color: -moz-field;
+    border: 1px solid darkgray;
+    box-shadow: 1px 1px 1px 0 lightgray inset;  
+    font: -moz-field;
+    font: -webkit-small-control;
+    margin-top: 5px;
+    padding: 2px 3px;
+    width: 398px;    
+}
+
+.aim-item {
+	float: left;
+}
+.aim-selected-item.highlight {
+    background-color: lightblue;
+}
+
+.input-blank input {
+	border: none !important;
+	background-color: transparent;
+	outline: none;
+}
+
+.clearfix:after { 
+   content: " ";
+   display: block; 
+   height: 0; 
+   clear: both;
+}
+
+.btn-blank {
+    margin: 0;
+    border: none;
+    outline: none;
+    background-color: transparent;
+}

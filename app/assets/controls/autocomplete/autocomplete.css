@@ -1,0 +1,42 @@
+
+.dropdown.open .dropdown-menu {
+	visibility: visible;
+}
+
+.dropdown-menu {
+	visibility: collapse;
+
+	position: absolute;
+	min-width: 200px;
+
+	margin: 0;
+	padding: 0;
+	border: 1px solid black;
+	background-color: white;
+	
+	list-style-type: none;
+}
+
+
+.li-btn-main {
+	background-color: transparent;
+	border: none;
+	width: 100%;
+
+	text-align: left;
+}
+.dropdown-menu:not(:hover) .btn-default.highlight {
+	background-color: #66CCFF;
+	color: white;
+}
+.btn-default:hover {
+	background-color: #66CCFF;
+	color: white;
+}
+.btn-default:active {
+	background-color: blue;
+	color: white;
+}
+.li-footer {
+	background-color: #E0F5FF;
+}
