@@ -106,7 +106,7 @@ angular.module('Controls')
                             navigateSelectedItems.back();
                         }
                     } else if (isKeyCode(e, 39)) { // right
-                        if (caretPos === 0 || navigateSelectedItems.isHighlightedItem()) {
+                        if (navigateSelectedItems.isHighlightedItem()) {
                             navigateSelectedItems.next();
                         }
                     } else if (isKeyCode(e, 8)) { // backspace
