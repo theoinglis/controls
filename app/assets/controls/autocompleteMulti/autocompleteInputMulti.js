@@ -110,6 +110,7 @@ angular.module('Controls')
                             navigateSelectedItems.next();
                         }
                     } else if (isKeyCode(e, 8)) { // backspace
+                        e.preventDefault();
                         if (caretPos === 0) {
                             if (!navigateSelectedItems.tryDeleteSelectedItem()) {
                                 navigateSelectedItems.back();

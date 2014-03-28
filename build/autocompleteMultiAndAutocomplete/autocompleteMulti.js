@@ -343,6 +343,7 @@ angular.module('Controls')
                             navigateSelectedItems.next();
                         }
                     } else if (isKeyCode(e, 8)) { // backspace
+                        e.preventDefault();
                         if (caretPos === 0) {
                             if (!navigateSelectedItems.tryDeleteSelectedItem()) {
                                 navigateSelectedItems.back();
@@ -450,12 +451,32 @@ angular.module('Controls')
             }]);
 angular.module('Helpers')
 	.directive('preventDefault', function() {
-	    return function(scope, element, attrs) {
-	        element.click(function(event) {
-	            event.preventDefault();
-	        });
-	    }
-	})
+	    return {
+	    	restrict: 'A',
+	    	link: function(scope, element, attrs) {
+		        element.click(function(event) {
+		            event.preventDefault();
+		        });
+		    }
+	    } 
+	});
+$(document).unbind('keydown').bind('keydown', function (event) {
+    var doPrevent = false;
+    if (event.keyCode === 8) {
+        var d = event.srcElement || event.target;
+        if ((d.tagName.toUpperCase() === 'INPUT' && (d.type.toUpperCase() === 'TEXT' || d.type.toUpperCase() === 'PASSWORD' || d.type.toUpperCase() === 'FILE')) 
+             || d.tagName.toUpperCase() === 'TEXTAREA') {
+            doPrevent = d.readOnly || d.disabled;
+        }
+        else {
+            doPrevent = true;
+        }
+    }
+
+    if (doPrevent) {
+        event.preventDefault();
+    }
+});
 (function($) {
   $.fn.caret = function(pos) {
     var target = this[0];
