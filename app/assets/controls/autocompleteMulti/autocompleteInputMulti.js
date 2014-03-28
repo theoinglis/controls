@@ -135,7 +135,6 @@ angular.module('Controls')
                         userOptions: '=options',
                     },
                     controller: 'AutocompleteInputMultiController',
-                    templateUrl: '/assets/controls/autocomplete/autocompleteInputMulti.html',
                     link: function($scope, element, attrs) {
                         var setOptions = function(userOptions) {
                             // Want to overwrite default options hence have to have
@@ -197,6 +196,22 @@ angular.module('Controls')
                             $scope.selectedItems.length = 0;
                         }
                         refresh();
-                    }
+                    },
+                    template: '<div class="input-default clearfix" ng-keyup="onKeyup($event)" ng-click="containerClicked($event)">'+
+                              '  <div class="aim-item aim-selected-item"'+
+                              '       ng-class="{highlight: ($index === selectedItemPos)}"'+
+                              '       ng-repeat="item in selectedItems"'+
+                              '       prevent-default>'+
+                              '      <button class="aim-selected-item-btn-select btn-blank" type="button" ng-click="highlightSelectedItem($index)">'+
+                              '          {{item[options.propName]}}'+
+                              '      </button>'+
+                              '      <button class="aim-selected-item-btn-delete" type="button" ng-click="removeItem(item)">&#10006</button>'+
+                              '  </div>'+
+                              '  <autocomplete-input class="aim-item input-blank"'+
+                              '                      selected-item="selectedItem" '+
+                              '                      items="availableItems" '+
+                              '                      options="options">'+
+                              '  </autocomplete-input>'+
+                              '</div>'
                 };
             }]);

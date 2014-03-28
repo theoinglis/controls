@@ -101,7 +101,6 @@ angular.module('Controls')
                         userOptions: '=options',
                     },
                     controller: 'AutocompleteInputController',
-                    templateUrl: '/assets/controls/autocomplete/autocompleteInput.html',
                     link: function($scope, element, attrs) {
 
                         var setOptions = function(userOptions) {
@@ -174,6 +173,32 @@ angular.module('Controls')
                                 $scope.blur();
                             }
                         };
-                    }
+                    },
+                    template: '<div class="autocomplete-input-container dropdown" ng-class="{open: options.isShowing}" on-focus-changed="onFocused">'+
+                              '  <input type="text" class="autocomplete-input"'+
+                              '         placeholder="{{options.placeholder}}"'+
+                              '         ng-keyup="onKeyup($event)"'+
+                              '         ng-model="options.selectedItemText"/>'+
+                              '  <ul class="ul-default dropdown-menu autocomplete-input-items">'+
+                              '      <li class="li-default autocomplete-input-item" ng-repeat="item in filteredItems">'+
+                              '          <button class="li-btn-main btn-default" ng-class="{highlight: ($index === highlightPos)}"'+
+                              '                  type="button" tabindex="-1"'+
+                              '                  ng-click="select(item)">'+
+                              '              {{item[options.propName]}}'+
+                              '          </button>'+
+                              '      </li>'+
+                              '      <li class="li-footer autocomplete-input-item autocomplete-input-create"'+
+                              '          ng-show="!options.disableCreate && options.selectedItemText">'+
+                              '          <label class="li-content li-content-title">'+
+                              '              Create and Select:'+
+                              '          </label>'+
+                              '          <button class="li-default li-btn-main btn-default" ng-class="{highlight: noItems}"'+
+                              '                  type="button" tabindex="-1"'+
+                              '                  ng-click="createAndSelect(options.selectedItemText)">'+
+                              '              {{options.selectedItemText}}'+
+                              '          </button>'+
+                              '      </li>'+
+                              '  </ul>'+
+                              '</div>'
                 };
             }]);
