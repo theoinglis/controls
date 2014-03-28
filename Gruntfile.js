@@ -313,7 +313,8 @@ module.exports = function (grunt) {
               'build/autocomplete/autocomplete.js',
               'app/assets/controls/autocompleteMulti/autocompleteInputMulti.js',
               'app/assets/helpers/preventDefault.js',
-              ],
+              'app/assets/vendor/jquery.caret/jquery.caret.js',
+            ],
            }
          }
        },
