@@ -2,6 +2,8 @@ An AngularJS control library:
   - Autocomplete
   - Autocomplete with multiple items selectable
 
+The library can be run by downloading the repository and running with 'grunt serve', provided you have grunt etc.
+
 Autocomplete
 ======
 
@@ -39,4 +41,4 @@ A demo can be seen [here](http://jsfiddle.net/TheoI/LndTb/).
 To use add the files in the [autocomplete multi build directory](https://github.com/theoinglis/controls/tree/master/build/autocompleteMultiAndAutocomplete). Adding this will also add the single autocomplete input.
 
 ### Options
-Same as the single Autocomplete
+Same as the [single Autocomplete](https://github.com/theoinglis/controls#options)
